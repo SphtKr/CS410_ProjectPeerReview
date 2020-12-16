@@ -212,6 +212,50 @@ def test_naive_bayes_classifier(pos_training_data_file, neg_training_data_file,
     print('Recall    {:.2}'.format(recall))
     print('F1 score  {:.2}'.format(2*precision*recall/(precision+recall)))
 
+def test_naive_bayes_classifier_cross(pos_training_data_file, neg_training_data_file,
+                                no_training_samples, no_test_samples, cross_data_file):
+
+    classifier = naive_bayes_classifier(pos_training_data_file, neg_training_data_file,
+                                        no_training_samples)
+    classifier.initialize_classifier()
+
+    # load positive & negative test samples. Test samples are selected from the same input files, however,
+    # samples are selected from beyond the no_training_samples to avoid using data used for training.
+    # (see load_test_samples function)
+    pos_test_samples = load_test_samples(pos_training_data_file, no_training_samples, no_test_samples)
+    neg_test_samples = load_test_samples(cross_data_file, 0, no_test_samples)
+
+    true_positive = 0
+    true_negative = 0
+
+    # Test against positive samples
+    for test_url in pos_test_samples:
+        result = classifier.classify(test_url)
+        if result == True:
+            true_positive += 1
+        else:
+            #print("{} False Negative".format(test_url))
+            pass
+
+    # test against negative samples
+    for test_url in neg_test_samples:
+        result = classifier.classify(test_url)
+        if result == True:
+            #print("{} is False Positive".format(test_url))
+            pass
+        else:
+            true_negative += 1
+
+    print('Positive Samples {}, Accuracy - {:.2}'.format(true_positive, true_positive/no_test_samples))
+    print('Negative Samples {}, Accuracy - {:.2}'.format(true_negative, true_negative/no_test_samples))
+
+    precision = true_positive/(true_positive+no_test_samples-true_negative)
+    recall = true_positive/(true_positive+no_test_samples-true_positive)
+
+    print('Precision {:.2}'.format(precision))
+    print('Recall    {:.2}'.format(recall))
+    print('F1 score  {:.2}'.format(2*precision*recall/(precision+recall)))
+
 
 if __name__ == '__main__':
     #pos_training_data_file = 'directory-positives.txt'
@@ -225,4 +269,9 @@ if __name__ == '__main__':
     # Test faculty classifier
     test_naive_bayes_classifier('faculty-pages-positives.txt', 'faculty-pages-negatives.txt', 6000, 300)
 
-
+    # Cross-test:
+    print('\nCross-test:\n')
+    print('Do faculty pages classify as directory pages?')
+    test_naive_bayes_classifier_cross('directory-positives.txt', 'directory-negatives.txt', 800, 100, 'faculty-pages-positives.txt' )
+    print('Do directory pages classify as faculty pages?')
+    test_naive_bayes_classifier_cross('faculty-pages-positives.txt', 'faculty-pages-negatives.txt', 6000, 300, 'directory-positives.txt')
