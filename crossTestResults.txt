@@ -1,0 +1,62 @@
+(venv) > python Classifier.py 
+[nltk_data] Downloading package punkt to
+[nltk_data]     /Users/sphtkr/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+https://www.stevens.edu/schaefer-school-engineering-science/departments/chemical-engineering-materials-science/faculty-staff
+ False Negative
+https://www.uwstout.edu/directory?search=&f%5B0%5D=department_content_title%3AMathematics%2C%20Statistics%20and%20Computer%20Science%20Department
+ False Negative
+https://www.temple.edu/academics/degree-programs/civil-engineering-ms-en-cee-msce/our-faculty
+ False Negative
+https://www.rit.edu/program-directory?program=6219021
+ False Negative
+https://www.clarion.edu/faculty-staff/
+ False Negative
+https://philosophy.fas.harvard.edu/faculty-1
+ False Negative
+https://www.montclair.edu/computer-science/staff-directory/
+ False Negative
+http://www.dartmouth.edu/research
+ is False Positive
+Positive Samples 93, Accuracy - 0.93
+Negative Samples 99, Accuracy - 0.99
+Precision 0.99
+Recall    0.93
+F1 score  0.96
+http://www.maxlittle.net/home/index.php
+ False Negative
+https://sfrlab.netlify.app/
+ False Negative
+http://www.umn.edu/~poling
+ False Negative
+http://homepages.spa.umn.edu/~vpribiag/index.php
+ False Negative
+http://puchnerlab.umn.edu
+ False Negative
+http://cal.ucf.edu/
+ False Negative
+http://www.vanderbilt.edu
+ is False Positive
+http://www.vt.edu/content/vtnews_vt_edu/en/tags.html
+ is False Positive
+Positive Samples 294, Accuracy - 0.98
+Negative Samples 298, Accuracy - 0.99
+Precision 0.99
+Recall    0.98
+F1 score  0.99
+
+Cross-test:
+
+Do faculty pages classify as directory pages?
+Positive Samples 94, Accuracy - 0.94
+Negative Samples 12, Accuracy - 0.12
+Precision 0.52
+Recall    0.94
+F1 score  0.67
+Do directory pages classify as faculty pages?
+Positive Samples 293, Accuracy - 0.98
+Negative Samples 43, Accuracy - 0.14
+Precision 0.53
+Recall    0.98
+F1 score  0.69
+
